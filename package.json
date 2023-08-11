@@ -3,15 +3,13 @@
   "version": "1.0.0",
   "description": "weather-cli project",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
   "author": "Javlon Abdumannopov",
   "license": "ISC",
-  "dependencies": {
-    "bootstrap": "^5.3.1"
-  },
   "devDependencies": {
     "nodemon": "^3.0.1"
   }
