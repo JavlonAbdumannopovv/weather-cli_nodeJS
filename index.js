@@ -6,13 +6,28 @@ import { TOKEN_DICTIONARY, saveKeyValue } from "./services/storage.service.js";
 const saveToken = async (token) => {
   if (!token.length) {
     printError("Token doesn`t exist");
-    return 
+    return;
   }
   try {
     await saveKeyValue(TOKEN_DICTIONARY.token, token);
     printSuccess("Token was saved");
   } catch (error) {
     printError(error.message);
+  }
+};
+
+const getForcast = async () => {
+  try {
+    const response = await getWeather(process.env.CITY ?? "Uzbekistan");
+    console.log(response);
+  } catch (error) {
+    if (error?.response?.status == 404) {
+      printError("City not found");
+    } else if (error?.response?.status == 401) {
+      printError("Invalid token");
+    } else {
+      printError(error.message);
+    }
   }
 };
 
@@ -31,8 +46,7 @@ const startCli = () => {
     return saveToken(args.t);
   }
 
-  //result
-  getWeather(process.env.CITY ?? "Uzbekistan");
+  getForcast();
 };
 
 startCli();
